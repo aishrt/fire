@@ -1,6 +1,6 @@
 const { collection, getDocs, addDoc } = require("firebase/firestore");
-const { db, firebaseApp } = require("../config/firebase");
-
+const { db } = require("../config/firebase");
+const { v4: uuidv4 } = require("uuid");
 // Get all versions
 const getLatestVersion = async (req, res) => {
   try {
@@ -23,11 +23,19 @@ const getLatestVersion = async (req, res) => {
       return null;
     }
 
-    // Sort by createdAt descending and get the latest
+    // Sort by createdAt descending, then by versionId descending as tiebreaker
     versions.sort((a, b) => {
       const dateA = parseCreatedAt(a.createdAt) || new Date(0);
       const dateB = parseCreatedAt(b.createdAt) || new Date(0);
-      return dateB.getTime() - dateA.getTime();
+      if (dateB.getTime() !== dateA.getTime()) {
+        return dateB.getTime() - dateA.getTime();
+      }
+      // Tiebreaker: sort by versionId (string compare, descending)
+      if (b.versionId && a.versionId) {
+        return b.versionId.localeCompare(a.versionId);
+      }
+      // Fallback: sort by Firestore doc id
+      return b.id.localeCompare(a.id);
     });
 
     const latest = versions[0] || null;
@@ -41,14 +49,24 @@ const getLatestVersion = async (req, res) => {
 // Add a new version (admin use)
 const addVersion = async (req, res) => {
   try {
-    const { latestVersion, createdAt } = req.body;
-    if (!latestVersion)
-      return res.status(400).json({ error: "Missing latestVersion" });
+    const createdAt = new Date();
+    const { latestVersion, versionDoc } = req.body;
+    const versionId = uuidv4();
+
     const docRef = await addDoc(collection(db, "versions"), {
       latestVersion,
-      createdAt: createdAt || new Date().toISOString(),
+      createdAt,
+      versionDoc,
+      versionId,
     });
-    res.status(201).json({ id: docRef.id, latestVersion });
+
+    res.status(201).json({
+      id: docRef.id,
+      latestVersion,
+      versionDoc,
+      versionId,
+      createdAt: createdAt.toISOString(),
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

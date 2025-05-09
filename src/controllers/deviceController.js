@@ -1,6 +1,5 @@
 const { doc, setDoc, getDoc } = require("firebase/firestore");
 const { db } = require("../config/firebase");
-
 // Upload or update device info
 const uploadDeviceInfo = async (req, res) => {
   try {
