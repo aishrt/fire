@@ -1,0 +1,307 @@
+{
+  "info": {
+    "_postman_id": "fire-api-collection-001",
+    "name": "Fire API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for all Fire API endpoints. Base URL: http://localhost:300/api"
+  },
+  "item": [
+    {
+      "name": "Discounts",
+      "item": [
+        {
+          "name": "Get All Discounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/discounts",
+              "host": ["http://localhost:300"],
+              "path": ["api", "discounts"]
+            }
+          }
+        },
+        {
+          "name": "Get Discount By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/discounts/:id",
+              "host": ["http://localhost:300"],
+              "path": ["api", "discounts", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Create Discount",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brandName\": \"Example Brand\",\n  \"category\": \"Example Category\",\n  \"code\": \"EXAMPLE10\",\n  \"description\": \"10% off\",\n  \"discountPercentage\": 10,\n  \"logo\": \"https://example.com/logo.png\",\n  \"url\": \"https://example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/discounts",
+              "host": ["http://localhost:300"],
+              "path": ["api", "discounts"]
+            }
+          }
+        },
+        {
+          "name": "Update Discount",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brandName\": \"Updated Brand\",\n  \"category\": \"Updated Category\",\n  \"code\": \"UPDATED10\",\n  \"description\": \"Updated description\",\n  \"discountPercentage\": 15,\n  \"logo\": \"https://example.com/logo.png\",\n  \"url\": \"https://example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/discounts/:id",
+              "host": ["http://localhost:300"],
+              "path": ["api", "discounts", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete Discount",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/discounts/:id",
+              "host": ["http://localhost:300"],
+              "path": ["api", "discounts", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get All Categories (Full)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/categories",
+              "host": ["http://localhost:300"],
+              "path": ["api", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Categories List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/categories-list",
+              "host": ["http://localhost:300"],
+              "path": ["api", "categories-list"]
+            }
+          }
+        },
+        {
+          "name": "Get Category By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/categories/:id",
+              "host": ["http://localhost:300"],
+              "path": ["api", "categories", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryType\": \"Example Category\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/categories",
+              "host": ["http://localhost:300"],
+              "path": ["api", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryType\": \"Updated Category\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/categories/:id",
+              "host": ["http://localhost:300"],
+              "path": ["api", "categories", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/categories/:id",
+              "host": ["http://localhost:300"],
+              "path": ["api", "categories", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tracking",
+      "item": [
+        {
+          "name": "Get Visited Domains",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/visited-domains/:deviceId",
+              "host": ["http://localhost:300"],
+              "path": ["api", "visited-domains", ":deviceId"]
+            }
+          }
+        },
+        {
+          "name": "Sync Visited Domains",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"visitedDomains\": [\n    {\n      \"domain\": \"example.com\",\n      \"timestamp\": \"2024-01-01T00:00:00Z\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/sync-visited-domains/:deviceId",
+              "host": ["http://localhost:300"],
+              "path": ["api", "sync-visited-domains", ":deviceId"]
+            }
+          }
+        },
+        {
+          "name": "Update Tracking Status",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"trackData\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/tracking-status/:deviceId",
+              "host": ["http://localhost:300"],
+              "path": ["api", "tracking-status", ":deviceId"]
+            }
+          }
+        },
+        {
+          "name": "Get Tracking Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/tracking-status/:deviceId",
+              "host": ["http://localhost:300"],
+              "path": ["api", "tracking-status", ":deviceId"]
+            }
+          }
+        },
+        {
+          "name": "Delete Tracking Data",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/tracking-data/:deviceId",
+              "host": ["http://localhost:300"],
+              "path": ["api", "tracking-data", ":deviceId"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Devices",
+      "item": [
+        {
+          "name": "Upload/Update Device Info",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"example-device-id\",\n  \"os\": \"Windows\",\n  \"browser\": \"Chrome\",\n  \"otherInfo\": \"...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/devices",
+              "host": ["http://localhost:300"],
+              "path": ["api", "devices"]
+            }
+          }
+        },
+        {
+          "name": "Get Device Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/devices/:deviceId",
+              "host": ["http://localhost:300"],
+              "path": ["api", "devices", ":deviceId"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Versions",
+      "item": [
+        {
+          "name": "Get Latest Version",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:300/api/versions/latest",
+              "host": ["http://localhost:300"],
+              "path": ["api", "versions", "latest"]
+            }
+          }
+        },
+        {
+          "name": "Add New Version",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"latestVersion\": \"1.0.0\",\n  \"createdAt\": \"2024-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:300/api/versions",
+              "host": ["http://localhost:300"],
+              "path": ["api", "versions"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

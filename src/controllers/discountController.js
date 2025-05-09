@@ -1,4 +1,12 @@
-const { collection, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } = require("firebase/firestore");
+const {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+} = require("firebase/firestore");
 const { db } = require("../config/firebase");
 
 // Get all discounts
@@ -28,13 +36,12 @@ const getDiscountById = async (req, res) => {
 
     res.json({
       id: docSnap.id,
-      ...docSnap.data()
+      ...docSnap.data(),
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // Create a new discount
 const createDiscount = async (req, res) => {
@@ -46,7 +53,7 @@ const createDiscount = async (req, res) => {
       description,
       discountPercentage,
       logo,
-      url
+      url,
     } = req.body;
 
     // Validate required fields
@@ -63,14 +70,14 @@ const createDiscount = async (req, res) => {
       description,
       discountPercentage: parseInt(discountPercentage),
       logo: logo || "",
-      url: url || ""
+      url: url || "",
     };
 
     const docRef = await addDoc(collection(db, "discounts"), discountData);
-    
+
     res.status(201).json({
       id: docRef.id,
-      ...discountData
+      ...discountData,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -88,7 +95,7 @@ const updateDiscount = async (req, res) => {
       description,
       discountPercentage,
       logo,
-      url
+      url,
     } = req.body;
 
     const docRef = doc(db, "discounts", id);
@@ -103,10 +110,12 @@ const updateDiscount = async (req, res) => {
       ...(category && { category }),
       ...(code && { code }),
       ...(description && { description }),
-      ...(discountPercentage && { discountPercentage: parseInt(discountPercentage) }),
+      ...(discountPercentage && {
+        discountPercentage: parseInt(discountPercentage),
+      }),
       ...(logo && { logo }),
       ...(url && { url }),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     await updateDoc(docRef, updateData);
@@ -114,7 +123,7 @@ const updateDiscount = async (req, res) => {
     res.json({
       id,
       ...docSnap.data(),
-      ...updateData
+      ...updateData,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -141,9 +150,8 @@ const deleteDiscount = async (req, res) => {
 
 module.exports = {
   getDiscounts,
-  getCategories,
   createDiscount,
   getDiscountById,
   updateDiscount,
-  deleteDiscount
-}; 
+  deleteDiscount,
+};

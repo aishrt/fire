@@ -8,6 +8,8 @@ const trackingRoutes = require("./src/routes/trackingRoutes");
 const discountRoutes = require("./src/routes/discountRoutes");
 const categoryRoutes = require("./src/routes/categoryRoutes");
 const errorHandler = require("./src/middleware/errorHandler");
+const versionRoutes = require("./src/routes/versionRoutes");
+const deviceRoutes = require("./src/routes/deviceRoutes");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -47,6 +49,8 @@ app.use(validateRequest);
 app.use("/api", trackingRoutes);
 app.use("/api", discountRoutes);
 app.use("/api", categoryRoutes);
+app.use("/api", versionRoutes);
+app.use("/api", deviceRoutes);
 
 // Health check endpoint
 app.get("/health", (req, res) => {
